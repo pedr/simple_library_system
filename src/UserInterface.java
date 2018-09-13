@@ -11,8 +11,8 @@ public class UserInterface {
     public void run() {
 
 	while (true) {
-	    System.out.println("--- My library system --- \n");
-	    System.out.println(" -- Connected to " + this.dbName + " -- \n");
+	    System.out.println("\n/ -- My library system --- ");
+	    System.out.println("|-- Connected to " + this.dbName + " -- \n");
 	    menu();
 	    int cmd = option();
 	    if (cmd == 0) {
@@ -22,14 +22,31 @@ public class UserInterface {
     }
 
     private void menu() {
-	System.out.println("-- Menu --\n");
-	System.out.println(" 1 - Insert Book\n");
-	System.out.println(" 0 - Exit\n");
+	System.out.println("-- Menu --");
+	System.out.println(" 1 - Insert Book");
+	System.out.println(" 0 - Exit");
     }
 
     private int option() {
 	Scanner reader = new Scanner(System.in);
-	String cmd = reader.getNextInt();
+	int cmd = reader.nextInt();
 	return cmd;
+    }
+
+    private boolean addBook() {
+	Scanner reader = new Scanner(System.in);
+	System.out.println("Adding a new book>");
+	System.out.println("Name: ");
+	String name = reader.nextLine();
+
+	System.out.println("Author: ");
+	String author = reader.nextLine();
+
+	System.out.println("Year: ");
+	int year = reader.nextInt();
+
+	Book bk = new Book(name author, year, null);
+	System.out.println(bk);
+
     }
 }
