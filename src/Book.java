@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Book {
@@ -44,6 +45,14 @@ public class Book {
 	    return true;
 	}
 	return false;
+    }
+
+    public HashMap<String, String> data() {
+	HashMap<String, String> bookData = new HashMap<String, String>();
+	bookData.put("name", this.name);
+	bookData.put("author", this.author);
+
+	return bookData;
     }
 
     public String toString() {

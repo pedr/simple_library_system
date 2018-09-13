@@ -1,14 +1,22 @@
+import java.sql.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class UserInterface {
 
     private String dbName;
+    private Connection connection;
 
     public UserInterface(String dbName) {
 	this.dbName = dbName;
     }
 
     public void run() {
+	ConnectionDB connDB = new ConnectionDB(this.dbName);	
+	if (!connDB.connected()) {
+	    return;
+	}
+	this.connection = connDB.getConn();
 
 	while (true) {
 	    System.out.println("\n/ -- My library system --- ");
@@ -17,6 +25,9 @@ public class UserInterface {
 	    int cmd = option();
 	    if (cmd == 0) {
 		break;
+	    }
+	    if (cmd == 1) {
+		addBook();
 	    }
 	}
     }
@@ -36,17 +47,19 @@ public class UserInterface {
     private boolean addBook() {
 	Scanner reader = new Scanner(System.in);
 	System.out.println("Adding a new book>");
-	System.out.println("Name: ");
+	System.out.print("\tName: ");
 	String name = reader.nextLine();
 
-	System.out.println("Author: ");
+	System.out.print("\tAuthor: ");
 	String author = reader.nextLine();
 
-	System.out.println("Year: ");
+	System.out.print("\tYear: ");
 	int year = reader.nextInt();
 
-	Book bk = new Book(name author, year, null);
-	System.out.println(bk);
+	Book bk = new Book(name, author, year, null);
+	Repository repo = new Repository (this.connection);
+	System.out.println("Book add: " + repo.add(bk));
 
+	return true;
     }
 }

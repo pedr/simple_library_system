@@ -14,7 +14,8 @@ public class ConnectionDB {
     }
 
     private void tryToConnect() {
-	try (Connection conn = DriverManager.getConnection("jdbc:sqlite:" + this.dbName)) {
+	try  {
+	    Connection conn = DriverManager.getConnection("jdbc:sqlite:" + this.dbName);
 	    this.connection = conn; 
 	    this.connected = true;
 
@@ -43,8 +44,7 @@ public class ConnectionDB {
 	return false;
     }
 
-    public Connection getConnection() {
+    public Connection getConn() {
 	return this.connection;
     }
-
 }
