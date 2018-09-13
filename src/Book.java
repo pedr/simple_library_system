@@ -6,30 +6,32 @@ public class Book {
     private String name;
     private String author;
     private int year;
-    private ArrayList<String> tags;
+    private String tags;
     private String loaner;
+    private int quantity;
 
-    public Book(String name, String author, int year, ArrayList<String> tags) {
+    public Book(String name, String author, int year, String tags, int qnt) {
 	this.name = name;
 	this.author = author;
 	this.year = year;
 	this.tags = tags;
+	this.quantity = qnt;
     }
 
-    public Book(String name, String author, ArrayList<String> tags) {
-	this(name, author, 0, tags);
+    public Book(String name, String author, String tags) {
+	this(name, author, 0, tags, 1);
     }
 
-    public Book(String name, int year, ArrayList<String> tags) {
-	this(name, "", year, tags);
+    public Book(String name, int year, String tags) {
+	this(name, "", year, tags, 1);
     }
 
     public Book(String name, String author) {
-	this(name, author, 0, null);
+	this(name, author, 0, null, 1);
     }
 
     public Book(String name) {
-	this(name, "", 0, null);
+	this(name, "", 0, null, 1);
     }
 
     public void lenting(String p) {
@@ -51,6 +53,8 @@ public class Book {
 	HashMap<String, String> bookData = new HashMap<String, String>();
 	bookData.put("name", this.name);
 	bookData.put("author", this.author);
+	bookData.put("year", ("" + this.year));
+	bookData.put("qnt", ("" + this.quantity));
 
 	return bookData;
     }
