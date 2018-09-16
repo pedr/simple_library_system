@@ -29,6 +29,24 @@ public class Repository {
 	return true;
     }
 
+    public boolean add(User user) {
+	HashMap<String, String> userData = user.data();
+	String query = "INSERT INTO users (FNAME, EMAIL) " +
+			"VALUES ('" +
+			userData.get("fname") + "', '" +
+			userData.get("email") + "');";
+	
+	try {
+	    Statement stmt = this.connection.createStatement();
+	    stmt.executeUpdate(query);
+
+	} catch (SQLException e) {
+	    System.out.println(e.getMessage());
+	    return false;
+	}
+	return true;
+    }
+
     public ArrayList<Book> getLastBooks(int howMany) {
 	ArrayList<Book> books = new ArrayList<Book>();
 	String query = "SELECT * FROM books WHERE " +
@@ -56,4 +74,6 @@ public class Repository {
 	return books;
 
     }
+
+
 }

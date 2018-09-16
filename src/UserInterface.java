@@ -36,6 +36,10 @@ public class UserInterface {
 		    getBook();
 		    break;
 		}
+		case 3: {
+		    addUser();
+		    break;
+		}
 	    }
 	}
     }
@@ -44,6 +48,7 @@ public class UserInterface {
 	System.out.println("-- Menu --");
 	System.out.println(" 1 - Insert a Book");
 	System.out.println(" 2 - Find Books");
+	System.out.println(" 3 - Add user");
 	System.out.println(" 0 - Exit");
     }
 
@@ -120,6 +125,25 @@ public class UserInterface {
 	for (Book bk : bookList) {
 	    System.out.println(bk + "\n");
 	}
+    }
+
+    private void addUser() {
+	System.out.println("\n-- Adding a new user");
+	
+	System.out.print(" Name: ");
+	String name =  gettingInput();
+	if (name.isEmpty()) {
+	    System.out.println("Name can't be blank");
+	    return;
+	}
+
+	System.out.print(" Email: ");
+	String email = gettingInput();
+	User user = new User(name, email);
+	Repository repo = new Repository(this.connection);
+	System.out.println(" User added to database: " + repo.add(user));
+
+
     }
 
     private String gettingInput() {

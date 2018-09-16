@@ -1,1 +1,1 @@
-javac -d "./bin" -cp ".:./lib/sqlite-jdbc-3.23.1.jar" src/Biblioteca.java src/Book.java src/UserInterface.java src/ConnectionDB.java src/Repository.java && java -cp ".:./lib/sqlite-jdbc-3.23.1.jar:./bin" Biblioteca^C
+javac -d "./bin" -cp ".:./lib/sqlite-jdbc-3.23.1.jar" src/Biblioteca.java src/Book.java src/UserInterface.java src/ConnectionDB.java src/Repository.java src/User.java && java -cp ".:./lib/sqlite-jdbc-3.23.1.jar:./bin" Biblioteca^C

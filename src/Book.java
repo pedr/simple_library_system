@@ -18,32 +18,8 @@ public class Book {
 	this.quantity = qnt;
     }
 
-    public Book(String name, String author, String tags) {
-	this(name, author, 0, tags, 1);
-    }
-
-    public Book(String name, int year, String tags) {
-	this(name, "", year, tags, 1);
-    }
-
-    public Book(String name, String author) {
-	this(name, author, 0, null, 1);
-    }
-
-    public Book(String name) {
-	this(name, "", 0, null, 1);
-    }
-
-    public void lenting(String p) {
-	this.loaner = p;
-    }
-
-    public void returning(String p) {
-	this.loaner = null;
-    }
-
     public boolean available() {
-	if (this.loaner == null) {
+	if (this.quantity > 0) {
 	    return true;
 	}
 	return false;
@@ -60,6 +36,6 @@ public class Book {
     }
 
     public String toString() {
-	return "title: " + this.name + "\n author: " + this.author + "\n year: " + this.year  + "\n Available: " + available();
+	return "Title: " + this.name + "\n Author: " + this.author + "\n Year: " + this.year  + "\n Available: " + available();
     }
 }
