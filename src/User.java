@@ -6,8 +6,8 @@ public class User {
     private String email;
 
     public User(String fname, String email) {
-	this.fname = fname;
-	this.email = email;
+	    this.fname = fname;
+	    this.email = email;
     }
 
     public User(String fname) {
@@ -15,14 +15,15 @@ public class User {
     }
 
     public HashMap<String, String> data() {
-	HashMap<String, String> data = new HashMap<String, String>();
-	data.put("fname", this.fname);
-	data.put("email", this.email);
+        HashMap<String, String> data = new HashMap<String, String>();
+        data.put("fname", this.fname);
+        data.put("email", this.email);
 
-	return data;
+        return data;
     }
 
     public String toString() {
-	return "Name: " + this.fname + " - Email: " + this.email;
+
+        return "Name: " + this.fname + " - Email: " + this.email;
     }
 }
