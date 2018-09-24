@@ -4,6 +4,7 @@ public class User {
 
     private String fname;
     private String email;
+    private int id;
 
     public User(String fname, String email) {
 	    this.fname = fname;
@@ -26,4 +27,13 @@ public class User {
 
         return "Name: " + this.fname + " - Email: " + this.email;
     }
+
+    public void setId(int value) {
+        id = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
 }

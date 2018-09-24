@@ -157,29 +157,71 @@ public class UserInterface {
     }
 
     private void lentBook() {
+        int option = 0;
+
+        ArrayList<User> users = findUser();
+        option = chooseOption();
+        if (option == -1) {
+            return;
+        }
+        User lenter = users.get(option);
+
+        ArrayList<Book> books = findBook();
+        option = chooseOption();
+        if (option == -1) {
+            return;
+        }
+        Book book = books.get(option);
+
+
+        /* TO FINISH YET */
+    }
+
+    private int chooseOption() {
+        String option = gettingInput();
+        if (option.isEmpty() || option.equals("0")) {
+            return -1;
+        }
+
+        return Integer.parseInt(option) - 1;
+    }
+
+    private ArrayList<Book> findBook() {
+        System.out.println("\n -- Which keyword do you want to use?");
+        String keyword = gettingInput();
+        keyword = keyword.trim();
+
+        Repository repo = new Repository (this.connection);
+        ArrayList<Book> books = repo.findBook(keyword);
+
+        System.out.println("Which book: (type nothing or 0 to exit)");
+        int i = 1;
+        for (Book bk : books) {
+            System.out.println(i + "- " + bk);
+            i++;
+        }
+
+        return books;
+    }
+
+    private ArrayList<User> findUser() {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\n -- Who will lent?");
+        System.out.println("\n -- Which user?");
         String name = reader.nextLine();
         name = name.trim();
 
         Repository repo = new Repository (this.connection);
-        ArrayList<User> lenters = repo.findUser(name);
+        ArrayList<User> users = repo.findUser(name);
 
-        System.out.println("Which user: (type nothing or 0 to exit");
+        System.out.println("Which user: (type nothing or 0 to exit)");
         int i = 1;
-        for (User user : lenters) {
+        for (User user : users) {
             System.out.println(i + " - " + user);
             i++;
         }
 
-        String option = gettingInput();
-        if (option.isEmpty() || option.equals("0")) {
-            return;
-        }
-
-        User lenter = lenters.get(Integer.parseInt(option) - 1);
-        /* TO FINISH YET */
+        return users;
     }
 
 }

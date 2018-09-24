@@ -9,6 +9,7 @@ public class Book {
     private String tags;
     private String loaner;
     private int quantity;
+    private int id;
 
     public Book(String name, String author, int year, String tags, int qnt) {
 	this.name = name;
@@ -38,4 +39,12 @@ public class Book {
     public String toString() {
 	return "Title: " + this.name + "\n Author: " + this.author + "\n Year: " + this.year  + "\n Available: " + available();
     }
+
+    public void setId(int value) {
+    	id = value;
+	}
+
+	public int getId() {
+    	return id;
+	}
 }

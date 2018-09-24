@@ -75,7 +75,7 @@ public class Repository {
     }
 
     public ArrayList<User> findUser(String name) {
-    	String query = "SELECT * FROM users WHERE (fname = '" + name + "');";
+    	String query = "SELECT * FROM users WHERE (fname = '" + name + "' COLLATE NOCASE);";
     	ArrayList<User> users = new ArrayList<>();
     	ResultSet rs = null;
 
@@ -85,6 +85,7 @@ public class Repository {
 
 			while (rs.next()) {
 				User user = new User(rs.getString("fname"), rs.getString("email"));
+				user.setId(rs.getInt("id"));
 				users.add(user);
 			}
 
@@ -94,6 +95,56 @@ public class Repository {
 		}
 		return users;
 	}
+
+	public ArrayList<Book> findBook(String keyword) {
+    	String query = "Select * from books where " +
+					"((name = '" + keyword + "' COLLATE NOCASE) ||" +
+					" (author = '" + keyword + "' COLLATE NOCASE));";
+    	ArrayList<Book> books = new ArrayList<>();
+    	ResultSet rs = null;
+
+    	try {
+    		Statement stmt = this.connection.createStatement();
+    		rs = stmt.executeQuery(query);
+
+    		while (rs.next()) {
+				Book bk = new Book(rs.getString("name"),
+						rs.getString("author"),
+						rs.getInt("year"),
+						"no tags",
+						rs.getInt("qnt"));
+				bk.setId(rs.getInt("id"));
+				books.add(bk);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+		return books;
+	}
+
+	public int exactUser(String fname, String email) {
+    	String query = "SELECT id FROM users WHERE " +
+						"((fname = '" + fname + "') &&" +
+						" (email = '" + email + "'));";
+    	ResultSet rs = null;
+		int id = -1;
+
+    	try {
+			Statement stmt = this.connection.createStatement();
+			rs = stmt.executeQuery(query);
+			id = rs.getInt("id");
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return -1;
+		}
+		return id;
+
+	}
+
+
 
 
 }
