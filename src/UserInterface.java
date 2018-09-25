@@ -24,10 +24,11 @@ public class UserInterface {
             System.out.println("|-- Connected to " + this.dbName + " -- \n");
             menu();
             int cmd = option();
-            if (cmd == 0) {
-            break; // easiest way to get out of infinite loop is not being inside a switch
-            }
+
             switch (cmd) {
+                case 0: {
+                    return;
+                }
                 case 1:  {
                     addBook();
                     break;
@@ -53,6 +54,7 @@ public class UserInterface {
         System.out.println(" 1 - Insert a Book");
         System.out.println(" 2 - Find Books");
         System.out.println(" 3 - Add user");
+        System.out.println(" 4 - Lent a book");
         System.out.println(" 0 - Exit");
     }
 
@@ -111,10 +113,11 @@ public class UserInterface {
         int a = reader.nextInt();
         switch (a) {
             case 1: {
-            getLastTen();
+                getLastTen();
             break;
             }
             case 2: {
+                findBook();
             break;
             }
         }
@@ -173,6 +176,10 @@ public class UserInterface {
         }
         Book book = books.get(option);
 
+        if (book.available()) {
+            Repository repo = new Repository(this.connection);
+            repo.lentBook(lenter, book);
+        }
 
         /* TO FINISH YET */
     }
@@ -187,7 +194,7 @@ public class UserInterface {
     }
 
     private ArrayList<Book> findBook() {
-        System.out.println("\n -- Which keyword do you want to use?");
+        System.out.println("\n-- Which book do you want to find?");
         String keyword = gettingInput();
         keyword = keyword.trim();
 
@@ -198,16 +205,16 @@ public class UserInterface {
         int i = 1;
         for (Book bk : books) {
             System.out.println(i + "- " + bk);
+            System.out.println("---------");
             i++;
         }
-
         return books;
     }
 
     private ArrayList<User> findUser() {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("\n -- Which user?");
+        System.out.println("\n-- Which user?");
         String name = reader.nextLine();
         name = name.trim();
 
@@ -217,10 +224,9 @@ public class UserInterface {
         System.out.println("Which user: (type nothing or 0 to exit)");
         int i = 1;
         for (User user : users) {
-            System.out.println(i + " - " + user);
+            System.out.println(i + "- " + user);
             i++;
         }
-
         return users;
     }
 

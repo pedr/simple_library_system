@@ -98,8 +98,8 @@ public class Repository {
 
 	public ArrayList<Book> findBook(String keyword) {
     	String query = "Select * from books where " +
-					"((name = '" + keyword + "' COLLATE NOCASE) ||" +
-					" (author = '" + keyword + "' COLLATE NOCASE));";
+					"((name LIKE '%" + keyword + "%') ||" +
+					" (author LIKE '%" + keyword + "%'));";
     	ArrayList<Book> books = new ArrayList<>();
     	ResultSet rs = null;
 
@@ -144,7 +144,28 @@ public class Repository {
 
 	}
 
+	public void lentBook(User user, Book book) {
+		String queryCheck = "SELECT * from books where (id = " + book.getId() + ") & (qnt > 0);";
+		String updateBookQnt = "UPDATE books set qnt = qnt - 1 WHERE (id = " + book.getId() + ");";
+		String lentingTable = "INSERT INTO booksLented (id_book, id_user) " +
+								"VALUES (" + book.getId() + ", " + user.getId() + ");";
+		ResultSet rs = null;
 
+		try {
+			Statement stmt = this.connection.createStatement();
+			rs = stmt.executeQuery(queryCheck);
 
+			if (!rs.next()) { // if first query doesn't return true means that id_book is wrong or there isn't books available
+				return;
+			}
 
+			stmt.executeUpdate(lentingTable);
+			stmt.executeUpdate(updateBookQnt);
+
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return;
+		}
+
+    }
 }

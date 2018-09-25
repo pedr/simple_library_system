@@ -24,8 +24,7 @@ public class User {
     }
 
     public String toString() {
-
-        return "Name: " + this.fname + " - Email: " + this.email;
+        return "Name: " + this.fname + " - Email: " + this.email + " - Id: " + getId();
     }
 
     public void setId(int value) {
