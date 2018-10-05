@@ -164,6 +164,7 @@ public class Repository {
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			System.out.println("Book not available.... probably");
 			return;
 		}
 
